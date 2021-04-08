@@ -5,5 +5,6 @@
 <script src="{{asset('js/option.js')}}"></script>
 <script src="{{asset('js/dashboard.js')}}"></script>
 @livewireScripts
+@stack('pageScripts')
 </body>
 </html>

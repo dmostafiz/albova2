@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\AffiliateEarning;
+use App\AffiliateEarningRecord;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
@@ -11,6 +13,42 @@ use Sentinel;
 
 class DashboardController extends Controller
 {
+
+    public function affiliateProgram()
+    {
+        $folder = $this->getFolder();
+
+        $data['role'] = $folder;
+        $data['bodyClass'] = 'hh-dashboard';
+
+        $affliateEarning = AffiliateEarning::where('user_id', get_current_user_id())->first();
+        if(!$affliateEarning)
+        {
+            $affliateEarning = null;
+        }
+
+        $totalRefferal = User::where('parent_id', get_current_user_id())->get()->count();
+        $data['affiliateEarning'] = $affliateEarning;
+        $data['totalRefferal'] = $totalRefferal;
+
+        $earnings = AffiliateEarningRecord::whereMonth('created_at', date('m'))
+        ->where('user_id', get_current_user_id())
+        ->whereYear('created_at', date('Y'))
+        ->get();
+
+        $earningCount = 0;
+
+        foreach($earnings as $item)
+        {
+            $earningCount += $item->amount;
+        }
+
+        $data['lastMontEarning'] = $earningCount;
+
+        return view("dashboard.screens.{$folder}.affiliate", $data);
+    }
+
+
     public function _getQRcode(Request $request)
     {
         $service_id = request()->get('serviceID');

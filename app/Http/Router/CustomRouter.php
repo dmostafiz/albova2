@@ -25,17 +25,17 @@ class CustomRouter extends Route
 
     protected function customNameSpace()
     {
-        $action = $this->action;
-        $namespace = $action['namespace'];
-        if ($namespace === 'App\Controllers') {
-            $route = $action['uses'];
-            $class_arr = Str::parseCallback($route);
-            $class = str_replace('App\Controller', 'AweCustom\Controller', $class_arr[0]);
-            if(class_exists($class)){
-                $this->action['uses'] = str_replace("App\Controllers", "AweCustom\Controllers", $this->action['uses']);
-                $this->action['controller'] = str_replace("App\Controllers", "AweCustom\Controllers", $this->action['controller']);
-                $this->action['namespace'] = str_replace("App\Controllers", "AweCustom\Controllers", $this->action['namespace']);
-            }
-        }
+        // $action = $this->action;
+        // $namespace = $action['namespace'];
+        // if ($namespace === 'App\Controllers') {
+        //     $route = $action['uses'];
+        //     $class_arr = Str::parseCallback($route);
+        //     $class = str_replace('App\Controller', 'AweCustom\Controller', $class_arr[0]);
+        //     if(class_exists($class)){
+        //         $this->action['uses'] = str_replace("App\Controllers", "AweCustom\Controllers", $this->action['uses']);
+        //         $this->action['controller'] = str_replace("App\Controllers", "AweCustom\Controllers", $this->action['controller']);
+        //         $this->action['namespace'] = str_replace("App\Controllers", "AweCustom\Controllers", $this->action['namespace']);
+        //     }
+        // }
     }
 }

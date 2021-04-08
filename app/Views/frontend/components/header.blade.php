@@ -26,6 +26,7 @@
         $body_class .= ' has-admin-bar';
     }
     ?>
+    <link rel="stylesheet" href="{{ asset('css/share.css') }}">
     @livewireStyles
 </head>
 <body class="awe-booking {{is_rtl()? 'rtl': ''}} {{ $body_class }}">
@@ -386,6 +387,11 @@ $current_lang = get_current_language();
                                 <i class="fe-user"></i>
                                 <span>{{__('Profile')}}</span>
                             </a>
+                            <a href="{{ route('public.profile', $user_id ) }}" class="dropdown-item notify-item">
+                                <i class="fe-user"></i>
+                                <span>{{__('Public Profile')}}</span>
+                            </a>
+
                         @if(is_admin() || is_partner())
                             @if(is_enable_service('home'))
                                 <!-- item-->

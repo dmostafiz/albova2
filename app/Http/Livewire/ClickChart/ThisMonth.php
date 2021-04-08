@@ -7,12 +7,14 @@ use App\AffiliateClick;
 
 class ThisMonth extends Component
 {
+
+    public $year;
     public $clickCount;
     public $monthName;
 
     public function mount()
     {
-
+        $this->year = date('Y');
         $this->monthName = date('F');
         $this->clickCount = AffiliateClick::whereMonth('created_at', date('m'))
         ->where('user_id', get_current_user_id())

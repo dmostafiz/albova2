@@ -8,11 +8,13 @@ use App\AffiliateEarningRecord;
 
 class PreviousMonth extends Component
 {
+    public $year;
     public $earningCount;
     public $monthName;
 
     public function mount()
     {
+        $this->year = date('Y');
         $this->monthName = Carbon::now()->subMonth()->format('F');
         $earnings = AffiliateEarningRecord::whereMonth('created_at', '=', Carbon::now()->subMonth()->month)
                           ->get();
@@ -27,7 +29,7 @@ class PreviousMonth extends Component
         $this->earningCount = $earningCount;
 
     }
-    
+
     public function render()
     {
         return view('livewire.earning-chart.previous-month');

@@ -23,8 +23,8 @@ class ThisYear extends Component
 
         $this->months = AffiliateRegistration::where('user_id', get_current_user_id())
         ->selectRaw("COUNT('*') as count")
-        ->selectRaw("MONTHNAME(created_at) as month") 
-        ->selectRaw("MONTH(created_at) as m") 
+        ->selectRaw("MONTHNAME(created_at) as month")
+        ->selectRaw("MONTH(created_at) as m")
         ->whereYear('created_at', date('Y'))
         ->groupBy('month')
         ->orderBy('m', 'ASC')

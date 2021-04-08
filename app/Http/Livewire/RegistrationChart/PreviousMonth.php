@@ -9,12 +9,13 @@ use App\AffiliateRegistration;
 
 class PreviousMonth extends Component
 {
-    
+    public $year;
     public $clickCount;
     public $monthName;
 
     public function mount()
     {
+        $this->year = date('Y');
         $this->monthName = Carbon::now()->subMonth()->format('F');
         $this->clickCount = AffiliateRegistration::where('user_id', get_current_user_id())
                           ->whereMonth('created_at', '=', Carbon::now()->subMonth()->month)

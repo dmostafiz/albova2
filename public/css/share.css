@@ -1,0 +1,67 @@
+.profile-cover{
+    padding-bottom: 20px !important;
+    min-height: 500px;
+    width: 100%;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+
+
+.profile-sidebar{
+   border: 1px solid #e6e9ec;
+   border-radius: 5px;
+   margin-top: 45px;
+   padding-top:20px;
+   padding-bottom: 10px;
+}
+
+/* buttons */
+
+#share a {
+	width: 24px;
+      height: 24px;
+      padding:24px;
+      display: inline-block;
+      text-align: center center;
+  	margin: 0 8px;
+  	border-radius: 50%;
+  	font-size: 24px;
+  	color: #fff;
+	opacity: 0.75;
+	transition: opacity 0.15s linear;
+}
+
+#share a:hover {
+	opacity: 1;
+}
+
+/* icons */
+
+#share i {
+    position: relative;
+    top: -5px;
+    right: 9px;
+  	transform: translateY(-50%);
+}
+
+/* colors */
+
+.facebook {
+ 	background: #3b5998;
+}
+
+.twitter {
+  	background: #55acee;
+}
+
+.googleplus {
+  	background: #dd4b39;
+}
+
+.linkedin {
+  	background: #0077b5;
+}
+
+.pinterest {
+  	background: #cb2027;
+}

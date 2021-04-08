@@ -10,3 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/user', 'RefferalController@reffInit')->name('user.reff');
+Route::get('/profile/{id}', 'publicProfileController@index')->name('public.profile');

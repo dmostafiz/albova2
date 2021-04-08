@@ -190,6 +190,7 @@ $booking_form = $post->booking_form;
 
                 <?php
                 $author = get_user_by_id($post->author);
+                // dd($author);
                 $description = $author->description;
                 ?>
                 <div class="row mt-4">
@@ -206,10 +207,14 @@ $booking_form = $post->booking_form;
                                 <div class="clearfix">
                                     {!! balanceTags(nl2br($description)) !!}
                                 </div>
-                            @endif
-                            <?php do_action('hh_owner_information') ?>
+                                @endif
+                                <?php do_action('hh_owner_information') ?>
+                                <a class="btn btn-success d-inline-flex align-items-center button-contact-host-experience"
+                                href="{{ route('public.profile', $author->getUserId() ) }}">
+                                    Go to profile
+                                </a>
+                            </div>
                         </div>
-                    </div>
                 </div>
                 @if($post->itinerary)
                     <div class="row mt-4">

@@ -156,6 +156,16 @@
                         </a>
                     @endif
                 @endif
+
+
+                <!-- item-->
+                <a href="{{ route('public.profile', $userdata->getUserId() ) }}" class="dropdown-item notify-item">
+                    <i class="fe-user"></i>
+                    <span>{{__('Public Profile')}}</span>
+                </a>
+                <!-- item-->
+
+
                 <div class="dropdown-divider"></div>
                 <!-- item-->
                 <?php

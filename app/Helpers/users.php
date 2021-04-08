@@ -369,3 +369,181 @@ function create_new_user($data = [])
         }
     }
 }
+
+
+function getRefferalLink($id = null)
+{
+    if($id != null)
+    {
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        {
+            $protocol = "https://";
+        }
+        else
+        {
+            $protocol = "http://";
+        }
+
+        return $protocol . $_SERVER['HTTP_HOST'] . '/user?ref_id=' . $id;
+    }
+}
+
+
+function updateAffiliateRegistrationRecord($user_id, $child_id)
+{
+    $record = new App\AffiliateRegistration();
+    $record->user_id = $user_id;
+    $record->child_id = $child_id;
+    $record->save();
+}
+
+
+function updateAffiliateEarning($child_id, $type)
+{
+
+    $child = App\Models\User::where('id', $child_id)->first();
+    // $child_id = $child->id;
+
+    if($child->parent_id != null)
+    {
+        $parent = App\Models\User::where('id',$child->parent_id)->first();
+
+        if($parent)
+        {
+
+            $role = get_user_role($parent->id)->name;
+
+            if($type == "new_experience")
+            {
+                if($role == 'Partner')
+                {
+                    $amount = 10;
+                }
+                elseif($role == 'Customer')
+                {
+                    $amount = 5;
+                }
+
+                $earning_type = "Experience created.";
+            }
+            elseif($type == "purchase_experience")
+            {
+                $earning_type = "Experience sold.";
+
+                if($role == 'Partner')
+                {
+                    $amount = 30;
+                }
+                elseif($role == 'Customer')
+                {
+                    $amount = 5;
+                }
+            }
+
+
+            $user_id = $parent->id;
+
+            $earning = App\AffiliateEarning::where('user_id', $user_id)->first();
+
+            if($earning)
+            {
+                $earning->total_earning = $earning->total_earning + $amount;
+                $earning->available_payout = $earning->available_payout + $amount;
+                $earning->save();
+            }
+
+            $record = new App\AffiliateEarningRecord();
+            $record->user_id = $user_id;
+            $record->child_id = $child_id;
+            $record->amount = $amount;
+            $record->earning_type = $earning_type;
+            $record->save();
+        }
+
+    }
+}
+
+
+
+function get_ip_info($ip = null){
+
+     if($ip == null)
+     {
+        $ip = $_SERVER["REMOTE_ADDR"];
+     }
+
+     $ip = "103.141.60.209";
+
+    $key = '0z0q849fr9vwer';
+
+    $api = 'https://api.ipregistry.co/'.$ip.'?key='.$key;
+
+    $info = json_decode(file_get_contents( $api ));
+    // dd($info);
+    return $info;
+
+    // $request = new \GuzzleHttp\Psr7\Request('GET', $api);
+    // $promise = $client->sendAsync($request)->then(function ($response) {
+    //     dd($response->getBody());
+    // });
+
+}
+function get_agent_info(){
+    $agent = new Agent();
+
+    // $agent->setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13+ (KHTML, like Gecko) Version/5.1.7 Safari/534.57.2');
+    // $agent->setHttpHeaders($headers);
+
+    return $agent;
+
+}
+
+function log_user_info($uid, $type = 'login')
+{
+    $ipinfo = get_ip_info();
+    $agent = get_agent_info();
+
+    // IP info
+    $info = new UserInformation();
+    $info->user_id = $uid;
+    $info->type = $type;
+    $info->ip = $ipinfo->ip;
+    $info->ip_type = $ipinfo->type;
+    $info->city = $ipinfo->location->city;
+    $info->country = $ipinfo->location->country->name;
+    $info->region = $ipinfo->location->region->name;
+    $info->continent = $ipinfo->location->continent->name;
+    $info->postal = $ipinfo->location->postal;
+    $info->latitude = $ipinfo->location->latitude;
+    $info->longitude = $ipinfo->location->longitude;
+    $info->time_zone = $ipinfo->time_zone->id;
+    $info->org_name = $ipinfo->connection->organization;
+    $info->org_domain = $ipinfo->connection->domain;
+    $info->org_route = $ipinfo->connection->route;
+    $info->org_type = $ipinfo->connection->type;
+
+    //Agent
+    $platform = $agent->platform();
+    $browser = $agent->browser();
+
+
+    $info->device = $agent->device();
+    $info->platform = $platform;
+    $info->platform_version = $agent->version($platform);
+    $info->browser = $browser;
+    $info->browser_version = $agent->version($browser);
+    $info->save();
+}
+
+function get_readable_time($time)
+{
+    // $time = (int) $time;
+    if(is_string($time))
+    {
+        // $time = Carbon::date($time);
+        return $time;
+        // return $time>diffForHumans();
+    }
+
+    return $time->diffForHumans();
+}

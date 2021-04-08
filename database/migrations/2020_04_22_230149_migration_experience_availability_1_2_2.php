@@ -23,7 +23,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
-class MigrationExperienceAvailability122 extends Migration
+class MigrationHomeAvailability122 extends Migration
 {
     /**
      * Run the migrations.
@@ -32,18 +32,18 @@ class MigrationExperienceAvailability122 extends Migration
      */
     public function up()
     {
-        Schema::table('experience_availability', function (Blueprint $table) {
-            if (!Schema::hasColumn("experience_availability", 'type')) {
+        Schema::table('home_availability', function (Blueprint $table) {
+            if (!Schema::hasColumn("home_availability", 'type')) {
                 $table->string('type')->nullable();
             }
-            if (!Schema::hasColumn("experience_availability", 'summary')) {
+            if (!Schema::hasColumn("home_availability", 'summary')) {
                 $table->string('summary')->default('');
             }
         });
     }
     public function down()
     {
-        Schema::table('experience_availability', function (Blueprint $table) {
+        Schema::table('home_availability', function (Blueprint $table) {
             $table->dropColumn(['type']);
             $table->dropColumn(['summary']);
         });

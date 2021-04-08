@@ -7,12 +7,13 @@ use Livewire\Component;
 
 class ThisMonth extends Component
 {
+    public $year;
     public $earningCount;
     public $monthName;
 
     public function mount()
     {
-
+        $this->year = date('Y');
         $this->monthName = date('F');
         $earnings = AffiliateEarningRecord::whereMonth('created_at', date('m'))
         ->where('user_id', get_current_user_id())

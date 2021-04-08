@@ -251,6 +251,12 @@ return [
             'screen' => 'all-notifications',
         ],
         [
+            'type' => 'item',
+            'label' => awe_lang('Users Affiliate'),
+            'icon' => '007_bars',
+            'screen' => 'affiliate-program',
+        ],
+        [
             'type' => 'parent',
             'label' => awe_lang('Posts'),
             'icon' => '004_post',
@@ -597,6 +603,12 @@ return [
             'screen' => 'all-notifications',
         ],
         [
+            'type' => 'item',
+            'label' => awe_lang('Affiliate Program'),
+            'icon' => '007_bars',
+            'screen' => 'affiliate-program',
+        ],
+        [
             'type' => 'heading',
             'services' => ['car', 'home', 'experience'],
             'label' => awe_lang('All Services'),
@@ -753,6 +765,12 @@ return [
             'label' => awe_lang('Notifications'),
             'icon' => '003_error',
             'screen' => 'all-notifications',
+        ],
+        [
+            'type' => 'item',
+            'label' => awe_lang('Affiliate Program'),
+            'icon' => '007_bars',
+            'screen' => 'affiliate-program',
         ],
         [
             'type' => 'heading',

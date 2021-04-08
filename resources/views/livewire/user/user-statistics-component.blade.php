@@ -1,0 +1,3 @@
+<div>
+    Statistics - {{ $userId }}
+</div>
