@@ -20,6 +20,8 @@
     <?php do_action('header'); ?>
     <?php do_action('init_header'); ?>
     <?php do_action('init_dashboard_header'); ?>
+
+    @livewireStyles
 </head>
 <body class="awe-booking {{is_rtl()? 'rtl': ''}} {{ isset($bodyClass)? $bodyClass: '' }}">
 @include('common.loading', ['class' => 'page-loading'])

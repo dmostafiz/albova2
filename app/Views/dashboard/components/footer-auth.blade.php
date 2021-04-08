@@ -5,5 +5,6 @@
 </footer>
 <script src="{{asset('js/vendor.min.js')}}"></script>
 <script src="{{asset('js/dashboard.js')}}"></script>
+@livewireScripts
 </body>
 </html>

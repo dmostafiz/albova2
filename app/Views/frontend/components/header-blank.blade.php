@@ -24,6 +24,7 @@
         $body_class .= ' has-admin-bar';
     }
     ?>
+    @livewireStyles
 </head>
 <body class="awe-booking {{ $body_class }}">
 <?php do_action('after_body_frontend'); ?>
